@@ -7,7 +7,7 @@
         "user": "postgres",
         "host": "localhost",
         "database": "memory_game",
-        "password": "Slash@123",
+        "password": "password@123",
         "port": 5432,
         "idleTimeoutMillis": 30000,
         "connectionTimeoutMillis": 2000
