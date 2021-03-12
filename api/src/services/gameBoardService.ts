@@ -23,9 +23,9 @@ export class GameBoardService {
         return result;
     };
 
-    public async createGameTurn(status: TurnStatus, cardsCount: number, clicksOrder: number[], numbersOnCards: number[]) {
+    public async createGameTurn(status: TurnStatus, cardsCount: number, cardsToBeTested: number[], finalClickedCards: number[], displayedCardsNumbers: number[]) {
         const creationDate = (new Date()).toUTCString();
-        const res = await this._db(Queries.Turns.createTurn, [status, cardsCount, clicksOrder.join(','), numbersOnCards.join(','), creationDate]);
+        const res = await this._db(Queries.Turns.createTurn, [status, cardsCount, finalClickedCards.join(','), displayedCardsNumbers.join(','), cardsToBeTested.join(','), creationDate]);
         const newCreatedTurn = await this.GetTurnById(res.rows[0].id);
         return newCreatedTurn;
     };

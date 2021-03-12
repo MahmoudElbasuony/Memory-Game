@@ -24,7 +24,7 @@ export function registerGameBoardRoutes(appRouter: Router): Router | void {
 * @route GET /api/v1/gameboard/getAllGameTurnsHistory?pageIndex=&pageSize=
 * @param {number} pageIndex.query.optional - page Iindex 
 * @param {number} pageSize.query.optional - page size 
-* @returns {object} 200 - An array of all user turns [ { id, creationDate, status , cardsCount , clicksOrder,numbersOnCards } ]
+* @returns {object} 200 - An array of all user turns [ { id : number , status: 0 | 1, cardsCount: number, cardsToBeTested: number[], finalClickedCards: number[], displayedCardsNumbers: number[] } ]
 * @returns {Error}  error - Internal server error { error : errorDescription } | Bad Request { error : errorDescription }
 */
   router.get("/getAllGameTurnsHistory", getAllTurnsHistoryValidator, gameBoardController.getAllGameTurnsHistory);
@@ -32,7 +32,7 @@ export function registerGameBoardRoutes(appRouter: Router): Router | void {
   /**
 * @route GET /api/v1/gameboard/getGameTurnById/1
 * @param {number} turnId.paras.required - turn id
-* @returns {object} 200 - A user turn  { id ,creationDate, status , cardsCount , clicksOrder,numbersOnCards } 
+* @returns {object} 200 - A user turn  { id : number , status: 0 | 1, cardsCount: number, cardsToBeTested: number[], finalClickedCards: number[], displayedCardsNumbers: number[] }  
 * @returns {Error}  error - Internal server error { error : errorDescription } | Bad Request { error : errorDescription }
 */
   router.get("/getGameTurnById/:id", getGameTurnByIdValidator, gameBoardController.getGameTurnById);
@@ -40,9 +40,10 @@ export function registerGameBoardRoutes(appRouter: Router): Router | void {
   /**
  * @route POST /api/v1/gameboard/createGameTurnResult
  * @param {number} cardsCount.body.required - cards count
- * @param {Array} numbersOnCards.body.required - numbers displayed on cards
- * @param {Array} clicksOrder.body.required - clicked cards numbers in ascending order as user clicked
- * @param {number} status.body.required - status of the turn e.g 0 Fail | 1 Win
+ * @param {Array} status.body.required - does the client wined or failed
+ * @param {Array} cardsToBeTested.body.required - cards that the user clicked to test himself before pressing play
+ * @param {Array} finalClickedCards.body.required - final clicked cards that will lead to the result
+ * @param {number} displayedCardsNumbers.body.required - at the begining on the play this represents the whole cards random numbers dsiplayed on board
  * @returns {object} 201 - Game turn created
  * @returns {Error}  error - Internal server error { error : errorDescription } | Bad Request { error : errorDescription }
  */

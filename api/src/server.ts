@@ -8,7 +8,7 @@ global.appRoot = __dirname;
 const config = require('./config/config.json');
 import dotenv from "dotenv";
 dotenv.config();
-import {app} from "./app";
+const app = require("./app");
 import http from "http";
 import { appLogger as logger } from './cross-cutting/utils/logger';
 import { handleError, isTrustedError } from "./cross-cutting/error/errorHandler";

@@ -27,9 +27,9 @@ export const GameBoardController = (gameBoardService: GameBoardService) => {
     },
 
     async createGameTurnResult(req: Request, res: Response, next: NextFunction) {
-      const { cardsCount, numbersOnCards, clicksOrder, status }: any = req.body;
+      const { status, cardsCount, cardsToBeTested, finalClickedCards, displayedCardsNumbers }: any = req.body;
       try {
-        const newTurn = await gameBoardService.createGameTurn(status, cardsCount, clicksOrder, numbersOnCards);
+        const newTurn = await gameBoardService.createGameTurn(status, cardsCount, cardsToBeTested, finalClickedCards, displayedCardsNumbers);
         res.status(201);
         res.json(newTurn);
       } catch (e) {

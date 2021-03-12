@@ -20,11 +20,11 @@ export function getAllTurnsHistoryValidator(req: Request, res: Response, next: N
 };
 
 export function createGameTurnValidator(req: Request, res: Response, next: NextFunction) {
-
   const createGameTurnResult = {
     cardsCount: Joi.number().required().min(Constants.MIN_CARD_NUMBER).max(Constants.MAX_CARD_NUMBER),
-    numbersOnCards: Joi.array().items(Joi.number().required()),
-    clicksOrder: Joi.array().items(Joi.number().required()).min(Constants.MIN_CARD_NUMBER).max(Constants.MAX_CARD_NUMBER),
+    displayedCardsNumbers: Joi.array().items(Joi.number().required()),
+    finalClickedCards: Joi.array().items(Joi.number().required()).max(Constants.MAX_CARD_NUMBER),
+    cardsToBeTested : Joi.array().items(Joi.number().required()).max(Constants.MAX_CARD_NUMBER), 
     status: Joi.number().valid(TurnStatus.Fail, TurnStatus.Win).required()
   };
   handleValidationError(createGameTurnResult, req.body, req, res, next);
